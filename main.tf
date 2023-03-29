@@ -5,32 +5,39 @@ resource "azurerm_virtual_network" "default" {
   address_space       = [var.cidr]
 }
 
+resource "azurerm_subnet" "ars" {
+  name                 = "RouteServerSubnet"
+  virtual_network_name = azurerm_virtual_network.default.name
+  resource_group_name  = var.rg_name
+  address_prefixes     = [cidrsubnet(var.cidr, 3, 0)]
+}
+
 resource "azurerm_subnet" "lb" {
   name                 = "${var.projectname}-lb-subnet"
   virtual_network_name = azurerm_virtual_network.default.name
   resource_group_name  = var.rg_name
-  address_prefixes     = [cidrsubnet(var.cidr, 4, 0)]
+  address_prefixes     = [cidrsubnet(var.cidr, 4, 2)]
 }
 
 resource "azurerm_subnet" "nva1" {
   name                 = "${var.projectname}-nva1-subnet"
   virtual_network_name = azurerm_virtual_network.default.name
   resource_group_name  = var.rg_name
-  address_prefixes     = [cidrsubnet(var.cidr, 4, 1)]
+  address_prefixes     = [cidrsubnet(var.cidr, 4, 3)]
 }
 
 resource "azurerm_subnet" "nva2" {
   name                 = "${var.projectname}-nva2-subnet"
   virtual_network_name = azurerm_virtual_network.default.name
   resource_group_name  = var.rg_name
-  address_prefixes     = [cidrsubnet(var.cidr, 4, 2)]
+  address_prefixes     = [cidrsubnet(var.cidr, 4, 4)]
 }
 
 resource "azurerm_subnet" "nva1-lan" {
   name                 = "${var.projectname}-nva1-lan-subnet"
   virtual_network_name = azurerm_virtual_network.default.name
   resource_group_name  = var.rg_name
-  address_prefixes     = [cidrsubnet(var.cidr, 4, 3)]
+  address_prefixes     = [cidrsubnet(var.cidr, 4, 5)]
 }
 
 
@@ -39,13 +46,6 @@ resource "azurerm_subnet" "nva2-lan" {
   virtual_network_name = azurerm_virtual_network.default.name
   resource_group_name  = var.rg_name
   address_prefixes     = [cidrsubnet(var.cidr, 4, 4)]
-}
-
-resource "azurerm_subnet" "ars" {
-  name                 = "RouteServerSubnet"
-  virtual_network_name = azurerm_virtual_network.default.name
-  resource_group_name  = var.rg_name
-  address_prefixes     = [cidrsubnet(var.cidr, 4, 5)]
 }
 
 # RTB associaations
