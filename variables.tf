@@ -2,6 +2,14 @@ variable "projectname" {
   description = "Name to prefix all of the Azure resources"
 }
 
+variable "region" {
+  description = "Azure region to deploy the resources in"
+}
+
+variable "rg_name" {
+  description = "Resource Group name to put all resources in"
+}
+
 variable "cidr" {
   description = "CIDR range to assign to the VNET Hub"
 }

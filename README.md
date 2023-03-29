@@ -4,6 +4,7 @@ Generic terraform module for deploying an Azure Hub with Load Balancer.
 
 ### Usage Example
 ```
+module "hub" {
   source = "git::https://github.com/fkhademi/terraform-azure-hub.git"
 
   projectname             = "frey"
