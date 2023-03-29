@@ -67,23 +67,41 @@ resource "azurerm_subnet_route_table_association" "lb" {
   route_table_id = azurerm_route_table.lb.id
 }
 
-# resource "azurerm_route_table" "hub-rtb-nva-2" {
-#   name                = "${var.projectname}-hub-rtb-nva-2"
-#   location            = var.region
-#   resource_group_name = var.rg_name
+resource "azurerm_route_table" "nva1" {
+  name                = "${var.projectname}-nva1-rtb"
+  location            = var.region
+  resource_group_name = var.rg_name
 
-#   route {
-#     name                   = "default"
-#     address_prefix         = var.onprem_cidr
-#     next_hop_type          = "VirtualAppliance"
-#     next_hop_in_ip_address = var.avx_tgw_hagw_bgpolan_ip
-#   }
-# }
+  route {
+    name                   = "default"
+    address_prefix         = var.onprem_cidr
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = var.avx_tgw_bgpolan_ip
+  }
+}
 
-# resource "azurerm_subnet_route_table_association" "hub-rtb-nva-2-association" {
-#   subnet_id      = azurerm_subnet.hub-subnet-nva-2.id
-#   route_table_id = azurerm_route_table.hub-rtb-nva-2.id
-# }
+resource "azurerm_subnet_route_table_association" "nva1" {
+  subnet_id      = azurerm_subnet.nva1.id
+  route_table_id = azurerm_route_table.nva1.id
+}
+
+resource "azurerm_route_table" "nva2" {
+  name                = "${var.projectname}-nva2-rtb"
+  location            = var.region
+  resource_group_name = var.rg_name
+
+  route {
+    name                   = "default"
+    address_prefix         = var.onprem_cidr
+    next_hop_type          = "VirtualAppliance"
+    next_hop_in_ip_address = var.avx_tgw_hagw_bgpolan_ip
+  }
+}
+
+resource "azurerm_subnet_route_table_association" "nva2" {
+  subnet_id      = azurerm_subnet.nva2.id
+  route_table_id = azurerm_route_table.nva2.id
+}
 
 
 
