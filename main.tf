@@ -45,7 +45,7 @@ resource "azurerm_subnet" "nva2-lan" {
   name                 = "${var.projectname}-nva2-lan-subnet"
   virtual_network_name = azurerm_virtual_network.default.name
   resource_group_name  = var.rg_name
-  address_prefixes     = [cidrsubnet(var.cidr, 4, 4)]
+  address_prefixes     = [cidrsubnet(var.cidr, 4, 6)]
 }
 
 # RTB associaations
