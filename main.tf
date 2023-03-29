@@ -42,7 +42,7 @@ resource "azurerm_subnet" "nva2-lan" {
 }
 
 resource "azurerm_subnet" "ars" {
-  name                 = "${var.projectname}-ars-subnet"
+  name                 = "RouteServerSubnet"
   virtual_network_name = azurerm_virtual_network.default.name
   resource_group_name  = var.rg_name
   address_prefixes     = [cidrsubnet(var.cidr, 4, 5)]
